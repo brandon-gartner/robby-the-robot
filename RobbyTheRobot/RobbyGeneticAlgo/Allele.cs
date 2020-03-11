@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace RobbyGeneticAlgo
 {
-    class Program
+    class Allele
     {
-        static void Main(string[] args)
-        {
-        }
+        //TO DO
     }
 }
