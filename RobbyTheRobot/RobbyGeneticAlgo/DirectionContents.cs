@@ -8,6 +8,14 @@ namespace RobbyGeneticAlgo
 {
     public struct DirectionContents
     {
-        //TO DO
+        public Contents N{ get; set; }
+
+        public Contents S { get; set; }
+
+        public Contents E { get; set; }
+
+        public Contents W { get; set; }
+
+        public Contents Current { get; set; }
     }
 }

@@ -8,6 +8,8 @@ namespace RobbyGeneticAlgo
 {
     public enum Contents
     {
-        //TO DO
+        Empty, 
+        Can, 
+        Wall
     }
 }

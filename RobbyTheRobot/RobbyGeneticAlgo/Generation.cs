@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RobbyGeneticAlgo;
 
 namespace RobbyGeneticAlgo
 {
@@ -15,7 +16,7 @@ namespace RobbyGeneticAlgo
             //TO DO
         }
 
-        public Generation( Chromosome[] members)
+        public Generation(Chromosome[] members)
         {
             chromosomes = new Chromosome[members.Length];
 
@@ -27,7 +28,13 @@ namespace RobbyGeneticAlgo
 
         public void EvalFitness(Fitness f)
         {
-            //TO DO
+            foreach (var c in chromosomes)
+            {
+                f(c);
+            }
+
+            Array.Sort(chromosomes);
+            Array.Reverse(chromosomes);
         }
 
         public Chromosome this[int index] 
@@ -35,10 +42,19 @@ namespace RobbyGeneticAlgo
             get { return chromosomes[index]; } 
         }
 
-        public Chromosome SelectParents()
+        public Chromosome SelectParent()
         {
-            //TO DO
-            throw new NotImplementedException();
+            int[] nums = new int[10];
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                nums[i] = Helpers.rand.Next(0, chromosomes.Length - 1);
+            }
+
+            int min = Helpers.FindMin(nums);
+
+            return chromosomes[min];
         }
     }
 }
+

@@ -5,8 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneticAlgo
+namespace RobbyGeneticAlgo
 {
+    /// <summary>
+    /// Delegates used in the project, creted here so all the classes have access
+    /// </summary>
+    public delegate double Fitness(Chromosome c);
+    public delegate int AlleleMoveAndFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
+    public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
+    public delegate void GenerationEvenHandler(int num, Generation g);
+
+
     /// <summary>
     /// This class contains some static helper methods
     /// </summary>
@@ -32,7 +41,10 @@ namespace GeneticAlgo
         /// <summary>
         /// TODO Add a Display method
         /// </summary>
-
+        public static void Display()
+        {
+            //TO DO
+        }
 
         /// <summary>
         /// TODO Add a Print method
@@ -125,6 +137,7 @@ namespace GeneticAlgo
         /// <param name="content">Content in a given direction</param>
         /// <param name="power">Exponent of 10</param>
         /// <returns>Partial calculation of the gene's index</returns>
+        
         private static int getIndexForDirection(Contents content, int power)
         {
             if (content == Contents.Empty)
@@ -140,9 +153,11 @@ namespace GeneticAlgo
         /// </summary>
         /// <param name="gridSize">Width or height of a square grid</param>
         /// <returns>Rectangular array of Contents filled with 50% Cans, and 50% Empty </returns>
+        
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
             ///TODO
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -206,6 +221,20 @@ namespace GeneticAlgo
             }
             while (!done);
             return 0;
+        }
+
+        public static int FindMin(int[] arr)
+        {
+            int min = arr[0];
+
+            for (int i = 1; i < arr.Length-1; i++)
+            {
+                if (min > arr[i])
+                {
+                    min = arr[i];
+                }
+            }
+            return min;
         }
     }
 }
