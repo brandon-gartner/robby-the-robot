@@ -50,7 +50,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Generation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RobbyProblem.cs" />
+    <Compile Include="RobbyRobotProblem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

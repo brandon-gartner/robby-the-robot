@@ -116,6 +116,7 @@ namespace RobbyGeneticAlgo
 
             return dir;
         }
+        
         /// <summary>
         /// Translates Robby's DirectionContents into the appropriate gene index
         /// </summary>
@@ -131,13 +132,13 @@ namespace RobbyGeneticAlgo
             gene += getIndexForDirection(dir.Current, 0);
             return gene;
         }
+
         /// <summary>
         /// Used to build up the index of the gene in the Chromosome
         /// </summary>
         /// <param name="content">Content in a given direction</param>
         /// <param name="power">Exponent of 10</param>
         /// <returns>Partial calculation of the gene's index</returns>
-        
         private static int getIndexForDirection(Contents content, int power)
         {
             if (content == Contents.Empty)
@@ -147,13 +148,13 @@ namespace RobbyGeneticAlgo
             //Wall
             return (int)(2 * Math.Pow(3, power));
         }
+
         /// <summary>
         /// Used to generate a single test grid filled with cans in random locations. Half of 
         /// the grid (rounded down) will be filled with cans.
         /// </summary>
         /// <param name="gridSize">Width or height of a square grid</param>
         /// <returns>Rectangular array of Contents filled with 50% Cans, and 50% Empty </returns>
-        
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
             ///TODO

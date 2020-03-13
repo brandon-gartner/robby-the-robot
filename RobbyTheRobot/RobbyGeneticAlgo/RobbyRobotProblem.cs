@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RobbyGeneticAlgo
 {
-    public class RobbyProblem
+    public class RobbyRobotProblem
     {
-        public RobbyProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions, int numTestGrids, int numGenes, double eliteRate, double mutationRate)
+        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions, int numTestGrids, int numGenes, double eliteRate, double mutationRate)
         {
             //TO DO
         }
