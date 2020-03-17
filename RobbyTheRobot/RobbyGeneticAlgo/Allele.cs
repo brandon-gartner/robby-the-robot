@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RobbyGeneticAlgo
 {
-    enum Allele
+    public enum Allele
     {
         North,
         South,
