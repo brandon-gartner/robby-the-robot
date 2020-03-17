@@ -5,8 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeneticAlgo
+namespace RobbyGeneticAlgo
 {
+    /// <summary>
+    /// Delegates used in the project, creted here so all the classes have access
+    /// </summary>
+    public delegate double Fitness(Chromosome c);
+    public delegate int AlleleMoveAndFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
+    public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
+    public delegate void GenerationEvenHandler(int num, Generation g);
+
+
     /// <summary>
     /// This class contains some static helper methods
     /// </summary>
@@ -32,7 +41,10 @@ namespace GeneticAlgo
         /// <summary>
         /// TODO Add a Display method
         /// </summary>
-
+        public static void Display()
+        {
+            //TO DO
+        }
 
         /// <summary>
         /// TODO Add a Print method
@@ -104,6 +116,7 @@ namespace GeneticAlgo
 
             return dir;
         }
+        
         /// <summary>
         /// Translates Robby's DirectionContents into the appropriate gene index
         /// </summary>
@@ -119,6 +132,7 @@ namespace GeneticAlgo
             gene += getIndexForDirection(dir.Current, 0);
             return gene;
         }
+
         /// <summary>
         /// Used to build up the index of the gene in the Chromosome
         /// </summary>
@@ -134,6 +148,7 @@ namespace GeneticAlgo
             //Wall
             return (int)(2 * Math.Pow(3, power));
         }
+
         /// <summary>
         /// Used to generate a single test grid filled with cans in random locations. Half of 
         /// the grid (rounded down) will be filled with cans.
@@ -143,6 +158,7 @@ namespace GeneticAlgo
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
             ///TODO
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -206,6 +222,20 @@ namespace GeneticAlgo
             }
             while (!done);
             return 0;
+        }
+
+        public static int FindMin(int[] arr)
+        {
+            int min = arr[0];
+
+            for (int i = 1; i < arr.Length-1; i++)
+            {
+                if (min > arr[i])
+                {
+                    min = arr[i];
+                }
+            }
+            return min;
         }
     }
 }
