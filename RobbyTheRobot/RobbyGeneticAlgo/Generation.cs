@@ -13,7 +13,11 @@ namespace RobbyGeneticAlgo
 
         public Generation(int populationSize, int numGenes)
         {
-            //TO DO
+            chromosomes = new Chromosome[populationSize];
+            for (int i = 0; i < populationSize; i++)
+            {
+                chromosomes[i] = new Chromosome(numGenes);
+            }
         }
 
         public Generation(Chromosome[] members)

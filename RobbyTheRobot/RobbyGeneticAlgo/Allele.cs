@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace RobbyGeneticAlgo
 {
-    class Allele
+    enum Allele
     {
-        //TO DO
+        North,
+        South,
+        East,
+        West,
+        Nothing,
+        PickUp,
+        Random
     }
 }
