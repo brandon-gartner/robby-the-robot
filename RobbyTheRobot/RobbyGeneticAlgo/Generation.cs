@@ -13,6 +13,7 @@ namespace RobbyGeneticAlgo
     /// </summary>
     public class Generation
     {
+        //Array of Chromosome
         Chromosome[] chromosomes;
 
         /// <summary>
