@@ -7,10 +7,20 @@ using RobbyGeneticAlgo;
 
 namespace RobbyGeneticAlgo
 {
+    /// <summary>
+    /// Generation Class
+    /// An array of Chromosomes at a giver generation
+    /// </summary>
     public class Generation
     {
+        //Array of Chromosome
         Chromosome[] chromosomes;
 
+        /// <summary>
+        /// Constructor to unitialize a generation with a random set of chromosomes
+        /// </summary>
+        /// <param name="populationSize"> the size of the population (Size of the array </param>
+        /// <param name="numGenes"> Number of genes for each chromosome </param>
         public Generation(int populationSize, int numGenes)
         {
             chromosomes = new Chromosome[populationSize];
@@ -20,6 +30,10 @@ namespace RobbyGeneticAlgo
             }
         }
 
+        /// <summary>
+        /// Constructor that takes an array of memebers and initializes a generation based of it
+        /// </summary>
+        /// <param name="members"> The members to form the new Generation </param>
         public Generation(Chromosome[] members)
         {
             chromosomes = new Chromosome[members.Length];
@@ -30,6 +44,10 @@ namespace RobbyGeneticAlgo
             }
         }
 
+        /// <summary>
+        /// Method that takes the Fitness of all chromosomes in the generation and sort the array from biggest to smallest
+        /// </summary>
+        /// <param name="f"> the fucntion Fitness that we want to apply </param>
         public void EvalFitness(Fitness f)
         {
             foreach (var c in chromosomes)
@@ -37,15 +55,27 @@ namespace RobbyGeneticAlgo
                 f(c);
             }
 
+            //Sort the arry ascending
             Array.Sort(chromosomes);
+            //Reverse the array so its from biggest to smallest
             Array.Reverse(chromosomes);
         }
 
-        public Chromosome this[int index] 
+        /// <summary>
+        /// Index to be able to access the chromosome array outside the class
+        /// </summary>
+        /// <param name="index"> an Int for the index/position </param>
+        /// <returns></returns>
+        public Chromosome this[int index]
         {
-            get { return chromosomes[index]; } 
+            get { return chromosomes[index % chromosomes.Length]; }
         }
 
+        /// <summary>
+        /// Method to select the parent of the next generation. 
+        /// It returns the top fittest within 10 random chromosomes
+        /// </summary>
+        /// <returns> Top fittest within 10 random chromosomes </returns>
         public Chromosome SelectParent()
         {
             int[] nums = new int[10];

@@ -116,7 +116,7 @@ namespace RobbyGeneticAlgo
 
             return dir;
         }
-        
+
         /// <summary>
         /// Translates Robby's DirectionContents into the appropriate gene index
         /// </summary>
@@ -228,7 +228,7 @@ namespace RobbyGeneticAlgo
         {
             int min = arr[0];
 
-            for (int i = 1; i < arr.Length-1; i++)
+            for (int i = 1; i < arr.Length - 1; i++)
             {
                 if (min > arr[i])
                 {
