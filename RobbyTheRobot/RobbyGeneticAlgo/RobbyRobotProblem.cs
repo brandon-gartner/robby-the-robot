@@ -59,7 +59,7 @@ namespace RobbyGeneticAlgo
         public void EvalFitness(Fitness f)
         {
             //fill gridContents with square rectangular array
-            for (int i = 0; i < 25; i++)
+            for (int i = 0; i < numTestGrids; i++)
             {
                 gridContents[i] = Helpers.GenerateRandomTestGrid(10);
             }
@@ -185,6 +185,8 @@ namespace RobbyGeneticAlgo
             avg = ((double)sum / numActions);
             return avg;
         }
+
+
 
     }
 }
