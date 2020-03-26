@@ -34,23 +34,69 @@ namespace RobbyGeneticAlgo
             RobbyRobotProblem robby = new RobbyRobotProblem(4000, 200, Helpers.ScoreForAllele);
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
+            robby.GenerationReplacedEvent += Display;
+            robby.GenerationReplacedEvent += Print;
             robby.Start();
 
         }
-        
 
 
         /// <summary>
-        /// TODO Add a Display method
+        /// Method to print to the console the generation  number and the fitness of the top chromoseme
         /// </summary>
-        public static void Display()
+        /// <param name="num"> The number of the current generation </param>
+        /// <param name="gen"> The current generation </param>
+        public static void Display(int num, Generation gen)
         {
-            //TO DO
+            Console.WriteLine("Current Generation: " + num);
+            Console.WriteLine("Fitness of Top Chromosome: " + gen[0].Fitness);
         }
 
         /// <summary>
-        /// TODO Add a Print method
+        /// Method to write to a file the info of the 1st, 20th, 100th, 200th, 500th and 1000th generation. 
         /// </summary>
+        /// <param name="num"> The number of the current generation </param>
+        /// <param name="gen"> The current generation </param>
+        public static void Print(int num, Generation gen)
+        {
+            string path = @"..\robby03\RobbyTheRobot\RobbyGeneticAlgo\info.txt";
+            string result = "start";
+            string currentOne;
+            switch (num)
+            {
+                case 1:
+                    currentOne = 1 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+                case 20:
+                    currentOne = 20 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+                case 100:
+                    currentOne = 100 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+                case 200:
+                    currentOne = 200 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+                case 500:
+                    currentOne = 500 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+                case 1000:
+                    currentOne = 1000 + "," + gen[0].Fitness;
+                    result = result + ";" + currentOne;
+                    break;
+
+            }
+            File.WriteAllText(path, result);
+        }
 
 
         /// <summary>
@@ -159,8 +205,23 @@ namespace RobbyGeneticAlgo
         /// <returns>Rectangular array of Contents filled with 50% Cans, and 50% Empty </returns>
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
-            ///TODO
-            throw new NotImplementedException();
+            Contents[,] grid = new Contents[gridSize, gridSize];
+            int numOfCans = (int) Math.Sqrt(gridSize) / 2;
+
+            for (int i = 0; i < gridSize; i++)
+            {
+                for (int j = 0; j < gridSize; j++)
+                {
+                    Contents content = GetRandomContent(numOfCans);
+                    if(content == Contents.Can)
+                    {
+                        numOfCans--;
+                    }
+                    grid[i, j] = content;
+                }
+            }
+
+            return grid;
         }
 
         /// <summary>
@@ -238,6 +299,23 @@ namespace RobbyGeneticAlgo
                 }
             }
             return min;
+        }
+
+        public static Contents GetRandomContent(int numOfcans)
+        {
+            if(numOfcans > 0)
+            {
+                switch (rand.Next(1))
+                {
+                    case 0:
+                        return Contents.Can;
+
+                    case 1:
+                        return Contents.Empty;
+                }
+            }
+
+            return Contents.Empty;
         }
     }
 }
