@@ -68,6 +68,7 @@ namespace RobbyGeneticAlgo
             currentGeneration.EvalFitness(RobbyFitness);
         }
 
+
         //written late at night with little sleep.  EXPECT BUGS
         public Generation GenerateNextGeneration()
         {
