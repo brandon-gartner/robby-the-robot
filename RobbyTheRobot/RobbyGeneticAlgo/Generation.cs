@@ -14,7 +14,7 @@ namespace RobbyGeneticAlgo
     public class Generation
     {
         //Array of Chromosome
-        private Chromosome[] chromosomes;
+        Chromosome[] chromosomes;
 
         /// <summary>
         /// Constructor to unitialize a generation with a random set of chromosomes
@@ -90,11 +90,6 @@ namespace RobbyGeneticAlgo
             int min = Helpers.FindMin(nums);
 
             return chromosomes[min];
-        }
-
-        public int Length
-        {
-            get { return chromosomes.Length; }
         }
     }
 }
