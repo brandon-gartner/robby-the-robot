@@ -122,8 +122,6 @@ namespace RobbyGeneticAlgo
             children[1] = SingleHelper(b, a, splitLocation);
 
             return children;
-
-
         }
 
         public Chromosome SingleHelper(Chromosome partThatGoesFirst, Chromosome partThatGoesSecond, int splitLocation)

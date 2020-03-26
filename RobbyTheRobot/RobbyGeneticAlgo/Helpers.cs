@@ -13,7 +13,7 @@ namespace RobbyGeneticAlgo
     public delegate double Fitness(Chromosome c);
     public delegate int AlleleMoveAndFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
     public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
-    public delegate void GenerationEvenHandler(int num, Generation g);
+    public delegate void GenerationEventHandler(int num, Generation g);
 
 
     /// <summary>
@@ -37,6 +37,8 @@ namespace RobbyGeneticAlgo
             robby.Start();
 
         }
+        
+
 
         /// <summary>
         /// TODO Add a Display method
