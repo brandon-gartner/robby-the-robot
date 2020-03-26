@@ -66,9 +66,11 @@ namespace RobbyGeneticAlgo
         /// </summary>
         /// <param name="index"> an Int for the index/position </param>
         /// <returns></returns>
-        public Chromosome this[int index] 
+        
+        public Chromosome this[int index]
         {
-            get { return chromosomes[index%chromosomes.Length]; } 
+            get { return chromosomes[index % chromosomes.Length]; }
+
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ namespace RobbyGeneticAlgo
 {
     public class Chromosome : IComparable
     {
+        //WARNING: alleles should be set to private once testing is done
         private Allele[] alleles;
         private double fitnessScore;
 
@@ -62,13 +63,13 @@ namespace RobbyGeneticAlgo
             //sets this object's fitness to be the result of the Fitness delegte method
             this.Fitness = f(this);
         }
-        
+
         public Allele this[int index]
         {
             //allows us to easily check the allele at any index of this chromosome
             get { return alleles[index]; }
         }
-        
+
         public double Fitness
         {
             //is a property that uses the fitnessScore private property as a backing field
@@ -121,8 +122,6 @@ namespace RobbyGeneticAlgo
             children[1] = SingleHelper(b, a, splitLocation);
 
             return children;
-
-
         }
 
         public Chromosome SingleHelper(Chromosome partThatGoesFirst, Chromosome partThatGoesSecond, int splitLocation)

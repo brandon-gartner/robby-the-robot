@@ -13,7 +13,7 @@ namespace RobbyGeneticAlgo
     public delegate double Fitness(Chromosome c);
     public delegate int AlleleMoveAndFitness(Chromosome c, Contents[,] grid, ref int x, ref int y);
     public delegate Chromosome[] Crossover(Chromosome a, Chromosome b);
-    public delegate void GenerationEvenHandler(int num, Generation g);
+    public delegate void GenerationEventHandler(int num, Generation g);
 
 
     /// <summary>
@@ -37,6 +37,8 @@ namespace RobbyGeneticAlgo
             robby.Start();
 
         }
+        
+
 
         /// <summary>
         /// TODO Add a Display method
@@ -116,7 +118,7 @@ namespace RobbyGeneticAlgo
 
             return dir;
         }
-        
+
         /// <summary>
         /// Translates Robby's DirectionContents into the appropriate gene index
         /// </summary>
@@ -228,7 +230,7 @@ namespace RobbyGeneticAlgo
         {
             int min = arr[0];
 
-            for (int i = 1; i < arr.Length-1; i++)
+            for (int i = 1; i < arr.Length - 1; i++)
             {
                 if (min > arr[i])
                 {
