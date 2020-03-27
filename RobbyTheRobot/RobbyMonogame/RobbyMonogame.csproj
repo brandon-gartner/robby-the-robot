@@ -56,8 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Untitled %281%29.png" />
-    <Content Include="Content\Untitled.png" />
+    <Content Include="Content\ball.png" />
+    <Content Include="Content\logo.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

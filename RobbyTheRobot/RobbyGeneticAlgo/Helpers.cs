@@ -16,6 +16,7 @@ namespace RobbyGeneticAlgo
     public delegate void GenerationEventHandler(int num, Generation g);
 
 
+
     /// <summary>
     /// This class contains some static helper methods
     /// </summary>
@@ -25,6 +26,7 @@ namespace RobbyGeneticAlgo
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
         public static readonly Random rand = new Random();
+        private static string Result = "start";
 
         /// <summary>
         /// Staring point of the Console application
@@ -59,9 +61,9 @@ namespace RobbyGeneticAlgo
         /// <param name="gen"> The current generation </param>
         public static void Print(int num, Generation gen)
         {
-            string path = @"..\info.txt";
+            Console.WriteLine("-----------------------------------------------------");
+            string path = @"C:\JoaoPedro\C#\robby03\RobbyTheRobot\RobbyGeneticAlgo\info.txt";
             //String where we will append all the other results to
-            string result = "start";
             string currentOne;
             //It will write the correspondent generation to the file
             //It should be "start;1,number;20,number;100...."
@@ -70,36 +72,37 @@ namespace RobbyGeneticAlgo
                 //It will write the first generation to the file
                 case 1:
                     currentOne = 1 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
                 case 20:
                     currentOne = 20 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
                 case 100:
                     currentOne = 100 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
                 case 200:
                     currentOne = 200 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
                 case 500:
                     currentOne = 500 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
                 case 1000:
                     currentOne = 1000 + "," + gen[0].Fitness;
-                    result = result + ";" + currentOne;
+                    Result = Result + ";" + currentOne;
                     break;
 
             }
-            File.WriteAllText(path, result);
+            File.WriteAllText(path, Result);
+            Console.WriteLine(Result);
         }
 
 

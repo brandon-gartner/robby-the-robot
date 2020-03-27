@@ -184,7 +184,7 @@ namespace RobbyGeneticAlgo
             }
 
             //average out his scores, and return the average
-            avg = ((double)sum / numActions);
+            avg = ((double)sum / numTestGrids);
             return avg;
         }
 
