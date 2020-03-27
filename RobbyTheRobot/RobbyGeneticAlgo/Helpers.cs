@@ -99,7 +99,6 @@ namespace RobbyGeneticAlgo
                     break;
 
             }
-            Console.WriteLine(result);
             File.WriteAllText(path, result);
         }
 
