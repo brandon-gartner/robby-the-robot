@@ -8,6 +8,5 @@ namespace RobbyMonogame
 {
     class SimulationSprite
     {
-
     }
 }

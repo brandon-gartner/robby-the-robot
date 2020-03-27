@@ -59,11 +59,15 @@ namespace RobbyGeneticAlgo
         /// <param name="gen"> The current generation </param>
         public static void Print(int num, Generation gen)
         {
-            string path = @"..\robby03\RobbyTheRobot\RobbyGeneticAlgo\info.txt";
+            string path = @"..\info.txt";
+            //String where we will append all the other results to
             string result = "start";
             string currentOne;
+            //It will write the correspondent generation to the file
+            //It should be "start;1,number;20,number;100...."
             switch (num)
             {
+                //It will write the first generation to the file
                 case 1:
                     currentOne = 1 + "," + gen[0].Fitness;
                     result = result + ";" + currentOne;
@@ -95,6 +99,7 @@ namespace RobbyGeneticAlgo
                     break;
 
             }
+            Console.WriteLine(result);
             File.WriteAllText(path, result);
         }
 
