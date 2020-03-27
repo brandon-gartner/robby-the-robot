@@ -33,7 +33,8 @@ namespace RobbyGeneticAlgo
             this.eliteRate = eliteRate;
             this.mutationRate = mutationRate;
             this.f = f;
-            Contents[][,] gridContents = new Contents[numTestGrids][,];
+            gridContents = new Contents[numTestGrids][,];
+            
         }
 
         public void Start()
