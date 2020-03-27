@@ -52,7 +52,7 @@ namespace RobbyGeneticAlgo
         {
             foreach (var c in chromosomes)
             {
-                f(c);
+                c.EvalFitness(f);
             }
 
             //Sort the arry ascending
