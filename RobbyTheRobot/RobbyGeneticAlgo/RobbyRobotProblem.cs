@@ -23,7 +23,7 @@ namespace RobbyGeneticAlgo
         Generation currentGeneration;
 
 
-        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 50, int numTestGrids = 200, int numGenes = 243, double eliteRate = .1, double mutationRate = .02)
+        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05)
         {
             this.numGenerations = numGenerations;
             this.popSize = popSize;
@@ -87,16 +87,15 @@ namespace RobbyGeneticAlgo
             }
 
             //figures out a number called randomMax, which is the highest number we will randomize to.
-            //randomMax is equal to the population size + the eliteCount.  
-            int randomMax = (popSize - ignoreCount) + eliteCount;
+            //randomMax is equal to the population size + the eliteCount.
             for (int i = 0; i < (popSize - eliteCount) / 2; i++)
             {
-                int numToAccess1 = WeightedChromosomeSelector(popSize, randomMax, eliteCount, ignoreCount);
-                int numToAccess2 = WeightedChromosomeSelector(popSize, randomMax, eliteCount, ignoreCount);
+                Chromosome firstParent = currentGeneration.SelectParent();
+                Chromosome secondParent = currentGeneration.SelectParent();
 
                 //reproduce, and then copy over the values into the chromosome array, to positions that make sense mathematically
                 //WARNING: the chromosome placement in the array may or may not work
-                Chromosome[] tempChromoArr = currentGeneration[numToAccess1].Reproduce(currentGeneration[numToAccess2], currentGeneration[numToAccess1].DoubleCrossover, this.mutationRate);
+                Chromosome[] tempChromoArr = firstParent.Reproduce(secondParent, firstParent.DoubleCrossover, this.mutationRate);
                 chromosomes[eliteCount + 2 * i] = tempChromoArr[0];
                 chromosomes[eliteCount + (2 * i) + 1] = tempChromoArr[1];
             }
@@ -184,7 +183,7 @@ namespace RobbyGeneticAlgo
             }
 
             //average out his scores, and return the average
-            avg = ((double)sum / numActions);
+            avg = ((double)sum / numTestGrids);
             return avg;
         }
 
