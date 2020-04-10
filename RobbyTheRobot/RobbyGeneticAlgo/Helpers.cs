@@ -31,7 +31,7 @@ namespace RobbyGeneticAlgo
         /// </summary>
         public static void Main()
         {
-            RobbyRobotProblem robby = new RobbyRobotProblem(4000, 200, Helpers.ScoreForAllele);
+            RobbyRobotProblem robby = new RobbyRobotProblem(10000, 200, Helpers.ScoreForAllele);
             //TODO subscribe to the RobbyRobotProblem’s GenerationReplaced event with the 
             // Display and the Print methods
             robby.GenerationReplacedEvent += Display;
@@ -210,7 +210,7 @@ namespace RobbyGeneticAlgo
         public static Contents[,] GenerateRandomTestGrid(int gridSize)
         {
             Contents[,] grid = new Contents[gridSize, gridSize];
-            int numOfCans = (int)Math.Sqrt(gridSize) / 2;
+            int numOfCans = (int)Math.Pow(gridSize, 2) / 2;
 
             for (int i = 0; i < gridSize; i++)
             {
@@ -309,7 +309,7 @@ namespace RobbyGeneticAlgo
         {
             if (numOfcans > 0)
             {
-                switch (rand.Next(1))
+                switch (rand.Next(2))
                 {
                     case 0:
                         return Contents.Can;
