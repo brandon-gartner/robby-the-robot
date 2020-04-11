@@ -98,6 +98,16 @@ namespace RobbyGeneticAlgo
                     File.WriteAllText(path + "gen1000.txt", currentOne);
                     break;
 
+                case 5000:
+                    currentOne = 5000 + ";" + gen[0].Fitness + ";" + gen[0].ToString();
+                    File.WriteAllText(path + "gen5000.txt", currentOne);
+                    break;
+
+                case 10000:
+                    currentOne = 10000 + ";" + gen[0].Fitness + ";" + gen[0].ToString();
+                    File.WriteAllText(path + "gen10000.txt", currentOne);
+                    break;
+
             }
         }
 
