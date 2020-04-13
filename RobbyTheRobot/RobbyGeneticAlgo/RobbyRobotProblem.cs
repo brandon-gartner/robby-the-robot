@@ -17,6 +17,7 @@ namespace RobbyGeneticAlgo
         private double mutationRate;
         private double highestFitness = -1000000000;
         private int highestGen = 0;
+        private int gridSize;
         Contents[][,] gridContents;
         AlleleMoveAndFitness f;
         public event GenerationEventHandler GenerationReplacedEvent;
@@ -25,7 +26,7 @@ namespace RobbyGeneticAlgo
         Generation currentGeneration;
 
 
-        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05)
+        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05, int gridSize = 10)
         {
             this.numGenerations = numGenerations;
             this.popSize = popSize;
@@ -34,6 +35,7 @@ namespace RobbyGeneticAlgo
             this.numGenes = numGenes;
             this.eliteRate = eliteRate;
             this.mutationRate = mutationRate;
+            this.gridSize = gridSize;
             this.f = f;
             gridContents = new Contents[numTestGrids][,];
             
@@ -60,10 +62,11 @@ namespace RobbyGeneticAlgo
                 //CONCERN: should the event be invoked before or after generating the new generation?
                 GenerationReplacedEvent?.Invoke(i, lastGeneration);
                 currentGeneration = GenerateNextGeneration();
-                Console.WriteLine("Highest generation was thus far was: Generation " + highestGen);
-                Console.WriteLine("Highest fitness thus far was: " + highestFitness);
                 if (highestFitness != currentGeneration[0].Fitness)
                 {
+
+                    Console.WriteLine("Highest generation was thus far was: Generation " + highestGen);
+                    Console.WriteLine("Highest fitness thus far was: " + highestFitness);
                     Console.WriteLine("The current generation's fitness was less than the max by: " + Math.Round(currentGeneration[0].Fitness - highestFitness, 2));
                 }
                 
@@ -84,7 +87,7 @@ namespace RobbyGeneticAlgo
             //fill gridContents with square rectangular array
             for (int i = 0; i < numTestGrids; i++)
             {
-                gridContents[i] = Helpers.GenerateRandomTestGrid(10);
+                gridContents[i] = Helpers.GenerateRandomTestGrid(gridSize);
             }
 
             //evaluates the fitness of everything in the currentGeneration
