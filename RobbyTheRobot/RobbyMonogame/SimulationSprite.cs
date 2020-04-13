@@ -95,10 +95,17 @@ namespace RobbyMonogame
             else
             {
                 this.countNumMoves = 0;
-                i++;
-                chromosome = new Chromosome(AlleleArrayMaker());
-                grid = Helpers.GenerateRandomTestGrid(10);
-                score = 0;
+                if(i+1 < data.Length)
+                {
+                    i++;             
+                    chromosome = new Chromosome(AlleleArrayMaker());
+                    grid = Helpers.GenerateRandomTestGrid(10);
+                    score = 0;
+                }
+                else
+                {
+                    game.Exit();
+                }
             }
         }
 
@@ -148,9 +155,9 @@ namespace RobbyMonogame
 
             String[] allelesString = arr.Split(',');
 
-            for (int i = 0; i < 243; i++)
+            for (int j = 0; j < 243; j++)
             {
-                alleles[i] = (Allele)Enum.Parse(typeof(Allele), allelesString[i]);
+                alleles[j] = (Allele)Enum.Parse(typeof(Allele), allelesString[j]);
             }
 
             return alleles;
