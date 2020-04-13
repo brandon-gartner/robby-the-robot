@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace RobbyGeneticAlgo
 {
+    [Serializable]
     public class Chromosome : IComparable
     {
         //WARNING: alleles should be set to private once testing is done

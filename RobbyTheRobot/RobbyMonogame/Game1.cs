@@ -11,6 +11,7 @@ namespace RobbyMonogame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private SimulationSprite simulationSprite;
 
         public Game1()
         {
@@ -27,7 +28,11 @@ namespace RobbyMonogame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            simulationSprite = new SimulationSprite(this);
+            Components.Add(simulationSprite);
+            graphics.PreferredBackBufferHeight = 500;
+            graphics.PreferredBackBufferWidth = 320;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -73,7 +78,7 @@ namespace RobbyMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
