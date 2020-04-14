@@ -10,7 +10,7 @@ using RobbyGeneticAlgo;
 namespace RobbyGeneticAlgoUnitTests
 {
     [TestClass]
-    class GenerationTest
+    public class GenerationTest
     {
         [TestMethod]
         public void TestNormalGenerationConstructor()
