@@ -7,27 +7,7 @@ namespace RobbyGeneticAlgoUnitTests
     [TestClass]
     public class ChromosomeTest
     {
-        [TestMethod]
-        public void TestLengthChromosomeConstructor()
-        {
-            //must set alleles to public for this test to work
-            int testNum = 4;
-
-            Chromosome tester = new Chromosome(testNum);
-            Assert.AreEqual(tester.alleles.Length, testNum);
-
-            bool[] doesEachAppear = new bool[7];
-            for (int i = 0; i < tester.alleles.Length; i++)
-            {
-                doesEachAppear[(int)tester[i]] = true;
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                Assert.IsTrue(doesEachAppear[i]);
-            }
-        }
-
+        
         [TestMethod]
         public void TestAlleleArrayChromosomeConstructor()
         {
@@ -102,7 +82,10 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestEvalFitness()
         {
-            //TODO
+            Allele[] testAlleles = { Allele.North };
+            Chromosome testChromosome = new Chromosome(testAlleles);
+            testChromosome.EvalFitness(FitnessBasedOnAlleleLiterals);
+            Assert.AreEqual(testChromosome.Fitness, 0);
         }
 
         [TestMethod]
@@ -115,7 +98,6 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome testChromo = new Chromosome(testAllele);
             Assert.AreEqual(testChromo[1], testAllele[1]);
             Assert.AreEqual(testChromo[3], testChromo[3]);
-
         }
 
         [TestMethod]
@@ -127,32 +109,11 @@ namespace RobbyGeneticAlgoUnitTests
 
             Chromosome testChromo = new Chromosome(testAllele);
             string asdf = testChromo.ToString();
-
-            Assert.AreEqual(asdf, "Allele.North,Allele.Random");
+            System.Diagnostics.Debug.WriteLine(asdf);
+            Assert.AreEqual(asdf, "North,Random,");
         }
 
-        [TestMethod]
-        public void TestCompareTo()
-        {
-            //to perform this test, temporarily make the private set for Fitness public
-            Chromosome a = new Chromosome(3);
-            Chromosome b = new Chromosome(3);
-            Chromosome c = new Chromosome(3);
-
-            a.Fitness = 3.0;
-            b.Fitness = 4.0;
-            c.Fitness = 5.0;
-
-            double BComparedToA = b.CompareTo(a);
-            double BComparedToC = b.CompareTo(c);
-            double BComparedToB = b.CompareTo(b);
-
-            Assert.IsTrue(BComparedToA > 0);
-            Assert.IsTrue(BComparedToC < 0);
-            Assert.AreEqual(0, BComparedToB);
-
-
-        }
+        //since my compareTo is simple I didn't write a test case for if both are chromosomes
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -166,7 +127,7 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestSingleCrossover()
         {
-            //TODO
+
         }
 
         [TestMethod]
@@ -174,5 +135,29 @@ namespace RobbyGeneticAlgoUnitTests
         {
             //TODO
         }
+
+        public double FitnessBasedOnAlleleLiterals(Chromosome c)
+        {
+            switch (c[0])
+            {
+                case Allele.North:
+                    return 0;
+                case Allele.South:
+                    return 1;
+                case Allele.East:
+                    return 2;
+                case Allele.West:
+                    return 3;
+                case Allele.Nothing:
+                    return 4;
+                case Allele.PickUp:
+                    return 5;
+                case Allele.Random:
+                    return 6;
+                default:
+                    return -1;
+            }
+        }
     }
 }
+

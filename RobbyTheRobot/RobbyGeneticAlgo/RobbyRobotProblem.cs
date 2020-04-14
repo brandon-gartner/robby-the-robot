@@ -23,7 +23,7 @@ namespace RobbyGeneticAlgo
         public event GenerationEventHandler GenerationReplacedEvent;
 
         //CONCERN: is the below allowed?
-        Generation currentGeneration;
+        private Generation currentGeneration;
 
 
         public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05, int gridSize = 10)
@@ -128,39 +128,6 @@ namespace RobbyGeneticAlgo
             //create a generation ouot of the array of chromosomes created.
             Generation nextGen = new Generation(chromosomes);
             return nextGen;
-        }
-
-      
-        public int WeightedChromosomeSelector(int popSize, int randomMax, int eliteCount, int ignoreCount) 
-        {
-            
-            //declare numToAccess, initialize randomGen as an int less than randomMax
-            int numToAccess = 0;
-            int randomGen = Helpers.rand.Next(randomMax);
-            bool ignored = true;
-            //if it is part of the section we ignore (greater than popSize + elites - ignore)
-            while (ignored)
-            {
-                if (randomGen > (popSize + eliteCount - ignoreCount))
-                {
-                    randomGen = Helpers.rand.Next(randomMax);
-                }
-                //if randomGen is less than double the eliteCount, divide the number by 2 and use that as the numToAccess
-                else if (randomGen < (2 * eliteCount))
-                {
-                    numToAccess = randomGen / 2;
-                    ignored = false;
-                }
-                //if its not part of the section to ignore, and its not within the extended elite count, subtract the eliteCount
-                //to figure out what the number would have been originally
-                else
-                {
-                    numToAccess = (randomGen - eliteCount);
-                    ignored = false;
-                }
-            }
-            
-            return numToAccess;
         }
 
         //decides how many elite chromosomes there are.

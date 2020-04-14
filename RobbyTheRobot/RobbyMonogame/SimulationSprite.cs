@@ -82,7 +82,7 @@ namespace RobbyMonogame
         {
             if(countNumMoves < 200)
             {
-                if (time > 0.01)
+                if (time > 0.001)
                 {
                     this.countNumMoves++;
                     score += Helpers.ScoreForAllele(chromosome, grid, ref robbyX, ref robbyY);
