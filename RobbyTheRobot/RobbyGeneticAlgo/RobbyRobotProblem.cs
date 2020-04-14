@@ -45,7 +45,7 @@ namespace RobbyGeneticAlgo
         {
             Generation lastGeneration;
             currentGeneration = new Generation(popSize, numGenes);
-            for (int i = 0; i < numGenerations; i++)
+            for (int i = 0; i < numGenerations + 1; i++)
             {
                 
                 //call the robotProblem's eval fitness, which evaluates the fitness of the entire currentGeneration
