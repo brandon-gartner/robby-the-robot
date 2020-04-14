@@ -8,27 +8,6 @@ namespace RobbyGeneticAlgoUnitTests
     public class ChromosomeTest
     {
         [TestMethod]
-        public void TestLengthChromosomeConstructor()
-        {
-            //must set alleles to public for this test to work
-            int testNum = 4;
-
-            Chromosome tester = new Chromosome(testNum);
-            Assert.AreEqual(tester.alleles.Length, testNum);
-
-            bool[] doesEachAppear = new bool[7];
-            for (int i = 0; i < tester.alleles.Length; i++)
-            {
-                doesEachAppear[(int)tester[i]] = true;
-            }
-
-            for (int i = 0; i < 7; i++)
-            {
-                Assert.IsTrue(doesEachAppear[i]);
-            }
-        }
-
-        [TestMethod]
         public void TestAlleleArrayChromosomeConstructor()
         {
             //using some probably way too long code, assigns 2x of every allele, creates a chromosome out of them, and then checks all of them
@@ -129,29 +108,6 @@ namespace RobbyGeneticAlgoUnitTests
             string asdf = testChromo.ToString();
 
             Assert.AreEqual(asdf, "Allele.North,Allele.Random");
-        }
-
-        [TestMethod]
-        public void TestCompareTo()
-        {
-            //to perform this test, temporarily make the private set for Fitness public
-            Chromosome a = new Chromosome(3);
-            Chromosome b = new Chromosome(3);
-            Chromosome c = new Chromosome(3);
-
-            a.Fitness = 3.0;
-            b.Fitness = 4.0;
-            c.Fitness = 5.0;
-
-            double BComparedToA = b.CompareTo(a);
-            double BComparedToC = b.CompareTo(c);
-            double BComparedToB = b.CompareTo(b);
-
-            Assert.IsTrue(BComparedToA > 0);
-            Assert.IsTrue(BComparedToC < 0);
-            Assert.AreEqual(0, BComparedToB);
-
-
         }
 
         [TestMethod]
