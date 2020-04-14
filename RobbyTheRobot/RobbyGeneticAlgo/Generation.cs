@@ -70,7 +70,6 @@ namespace RobbyGeneticAlgo
         public Chromosome this[int index]
         {
             get { return chromosomes[index % chromosomes.Length]; }
-
         }
 
         /// <summary>

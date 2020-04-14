@@ -8,6 +8,8 @@ namespace RobbyGeneticAlgoUnitTests
     public class ChromosomeTest
     {
         
+        //TODO test length modifier thing
+
         [TestMethod]
         public void TestAlleleArrayChromosomeConstructor()
         {
@@ -76,7 +78,43 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestReproduce()
         {
-            //TODO, still need to figure out how to test random values.
+            Allele[] a = { Allele.North, Allele.South, Allele.Random, Allele.North, Allele.South };
+            Allele[] b = { Allele.East, Allele.West, Allele.Nothing, Allele.East, Allele.West };
+            Allele[] c = { Allele.East, Allele.West, Allele.Nothing, Allele.North, Allele.South };
+            Allele[] d = { Allele.North, Allele.South, Allele.Random, Allele.East, Allele.West };
+
+            Chromosome first = new Chromosome(a);
+            Chromosome second = new Chromosome(b);
+            Chromosome[] children = first.Reproduce(second, first.DoubleCrossover, 0);
+            Chromosome[] testChildren = { new Chromosome(c), new Chromosome(d) };
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Assert.AreEqual(children[i][j], testChildren[i][j]);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void TestReproduceFail()
+        {
+            Allele[] a = { Allele.North, Allele.South, Allele.Random, Allele.North, Allele.South };
+            Allele[] b = { Allele.East, Allele.West, Allele.Nothing, Allele.East, Allele.West };
+            Allele[] c = { Allele.East, Allele.West, Allele.Nothing, Allele.North, Allele.South };
+            Allele[] d = { Allele.North, Allele.South, Allele.Random, Allele.East, Allele.West };
+
+            Chromosome first = new Chromosome(a);
+            Chromosome second = new Chromosome(b);
+            Chromosome[] children = first.Reproduce(second, first.DoubleCrossover, .5);
+            Chromosome[] testChildren = { new Chromosome(c), new Chromosome(d) };
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Assert.AreNotEqual(children[i], testChildren[i]);
+                }
+            }
         }
 
         [TestMethod]
@@ -127,13 +165,45 @@ namespace RobbyGeneticAlgoUnitTests
         [TestMethod]
         public void TestSingleCrossover()
         {
+                Allele[] a = { Allele.North, Allele.South, Allele.Random };
+                Allele[] b = { Allele.East, Allele.West, Allele.Nothing };
 
+                Chromosome first = new Chromosome(a);
+                Chromosome second = new Chromosome(b);
+                Chromosome[] children = first.SingleCrossover(first, second);
+                Allele[] c = { Allele.North, Allele.South, Allele.Nothing };
+                Allele[] d = { Allele.East, Allele.West, Allele.Random };
+;               Chromosome[] testChildren = { new Chromosome(c), new Chromosome(d) };
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        Assert.AreEqual(children[i][j], testChildren[i][j]);
+                    }
+                }
         }
 
         [TestMethod]
         public void TestDoubleCrossover()
         {
-            //TODO
+            Allele[] a = { Allele.North, Allele.South, Allele.Random, Allele.North, Allele.South };
+            Allele[] b = { Allele.East, Allele.West, Allele.Nothing, Allele.East, Allele.West };
+
+            Helpers.rand.Next(2);
+
+            Chromosome first = new Chromosome(a);
+            Chromosome second = new Chromosome(b);
+            Chromosome[] children = first.DoubleCrossover(first, second);
+            Allele[] c = { Allele.East, Allele.West, Allele.Nothing, Allele.North, Allele.South };
+            Allele[] d = { Allele.North, Allele.South, Allele.Random, Allele.East, Allele.West };
+            Chromosome[] testChildren = { new Chromosome(c), new Chromosome(d) };
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Assert.AreEqual(children[i][j], testChildren[i][j]);
+                }
+            }
         }
 
         public double FitnessBasedOnAlleleLiterals(Chromosome c)

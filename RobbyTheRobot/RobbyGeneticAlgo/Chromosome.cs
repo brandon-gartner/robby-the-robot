@@ -102,7 +102,6 @@ namespace RobbyGeneticAlgo
                 //CONCERN: the way I implemented this is probably wrong, since for example 5.2 - 5.6 would return 0
                 //that is, unless points are only gven in integer numbers.
                 return (int)(this.Fitness - tempChromo.Fitness);
-
             }
             else
             {
@@ -119,6 +118,7 @@ namespace RobbyGeneticAlgo
 
             Chromosome[] children = new Chromosome[2];
             int splitLocation = Helpers.rand.Next(alleles.Length);
+
             children[0] = SingleHelper(a, b, splitLocation);
             children[1] = SingleHelper(b, a, splitLocation);
 
