@@ -82,7 +82,8 @@ namespace RobbyMonogame
         {
             if(countNumMoves < 200)
             {
-                if (time > 0.01)
+                //If statement to slow down the game
+                if (time > 0.4)
                 {
                     this.countNumMoves++;
                     score += Helpers.ScoreForAllele(chromosome, grid, ref robbyX, ref robbyY);
@@ -113,6 +114,7 @@ namespace RobbyMonogame
         {
             spriteBatch.Begin();
 
+            //Loop to draw all the tiles
             for (int i = 0; i < 10; i++)
             {
                 for(int j = 0; j < 10; j++)
@@ -121,6 +123,7 @@ namespace RobbyMonogame
                 }
             }
 
+            //Loop to draw all the cans on the grid
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
@@ -134,10 +137,12 @@ namespace RobbyMonogame
 
             spriteBatch.Draw(imageLogo, new Rectangle(robbyX * 32, robbyY * 32, 32, 32), Color.White);
 
+            //Vectors for the display boxes
             Vector2 vector2 = new Vector2(25, 350);
             Vector2 vector21 = new Vector2(25, 375);
             Vector2 vector22 = new Vector2(25, 400);
 
+            //Display info
             spriteBatch.DrawString(font, "Current Generation: " + data[i][0] + "", vector2, Color.White);
             spriteBatch.DrawString(font, "Score: " + score + "", vector21, Color.White);
             spriteBatch.DrawString(font, "Number Of Moves: " + countNumMoves + "", vector22, Color.White);
@@ -148,6 +153,10 @@ namespace RobbyMonogame
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Method to create the current array of chromosome
+        /// </summary>
+        /// <returns> An Allele[] </returns>
         public Allele[] AlleleArrayMaker()
         {
             string arr = data[i][2];

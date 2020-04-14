@@ -300,6 +300,11 @@ namespace RobbyGeneticAlgo
             return 0;
         }
 
+        /// <summary>
+        /// Method to find the min value in a array
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
         public static int FindMin(int[] arr)
         {
             int min = arr[0];
