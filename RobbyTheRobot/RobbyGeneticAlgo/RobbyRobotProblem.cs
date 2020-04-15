@@ -21,8 +21,7 @@ namespace RobbyGeneticAlgo
         Contents[][,] gridContents;
         AlleleMoveAndFitness f;
         public event GenerationEventHandler GenerationReplacedEvent;
-
-        //CONCERN: is the below allowed?
+        
         private Generation currentGeneration;
 
 
@@ -51,15 +50,13 @@ namespace RobbyGeneticAlgo
                 //call the robotProblem's eval fitness, which evaluates the fitness of the entire currentGeneration
                 EvalFitness(RobbyFitness);
 
-                //saves your lastGeneration in case it is needed later
-                //WARNING: before submitting, decide if this is needed
+                //keeps track of the highest fitness and the generation with that fitnes
                 if (currentGeneration[0].Fitness >= highestFitness)
                 {
                     highestFitness = currentGeneration[0].Fitness;
                     highestGen = i;
                 }
                 lastGeneration = currentGeneration;
-                //CONCERN: should the event be invoked before or after generating the new generation?
                 GenerationReplacedEvent?.Invoke(i, lastGeneration);
                 currentGeneration = GenerateNextGeneration();
                 if (highestFitness != currentGeneration[0].Fitness)
@@ -95,12 +92,11 @@ namespace RobbyGeneticAlgo
         }
 
 
-        //written late at night with little sleep.  EXPECT BUGS
+        //creates the next generation
         public Generation GenerateNextGeneration()
         {
             //figure out how many are "elite", how many to ignore when reproducing
             int eliteCount = EliteCountDecider(popSize, eliteRate);
-            int ignoreCount = (int)(popSize * .1);
 
             //creating the chromosomes array
             Chromosome[] chromosomes = new Chromosome[popSize];
@@ -119,7 +115,6 @@ namespace RobbyGeneticAlgo
                 Chromosome secondParent = currentGeneration.SelectParent();
 
                 //reproduce, and then copy over the values into the chromosome array, to positions that make sense mathematically
-                //WARNING: the chromosome placement in the array may or may not work
                 Chromosome[] tempChromoArr = firstParent.Reproduce(secondParent, firstParent.DoubleCrossover, this.mutationRate);
                 chromosomes[eliteCount + 2 * i] = tempChromoArr[0];
                 chromosomes[eliteCount + (2 * i) + 1] = tempChromoArr[1];

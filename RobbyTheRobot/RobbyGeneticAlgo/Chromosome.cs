@@ -9,7 +9,6 @@ namespace RobbyGeneticAlgo
     [Serializable]
     public class Chromosome : IComparable
     {
-        //WARNING: alleles should be set to private once testing is done
         private Allele[] alleles;
         private double fitnessScore;
 
@@ -28,8 +27,6 @@ namespace RobbyGeneticAlgo
 
         public Chromosome(Allele[] gene)
         {
-            //CONCERN: any specific enum type is a value type, so is it fine to simply do (alleles = gene;)?
-
             //instantiates the allele array, and copies each value over individually
             alleles = new Allele[gene.Length];
             for (int i = 0; i < alleles.Length; i++)
@@ -98,9 +95,6 @@ namespace RobbyGeneticAlgo
             {
                 //if the given object evaluates to a chromosome, compare it to this object
                 Chromosome tempChromo = obj as Chromosome;
-
-                //CONCERN: the way I implemented this is probably wrong, since for example 5.2 - 5.6 would return 0
-                //that is, unless points are only gven in integer numbers.
                 return (int)(this.Fitness - tempChromo.Fitness);
             }
             else
@@ -112,10 +106,7 @@ namespace RobbyGeneticAlgo
 
         public Chromosome[] SingleCrossover(Chromosome a, Chromosome b)
         {
-            //CONCERN: code is overly dependant on things we already know.  OK, or change it?
-            //changed it, woould it be better to do this via subsections?
-            //should we try to implement this using other methods like constrainedCopy and stuff like that?
-
+            //invokes singlehelper to do most of the heavy lifting for singleCrossover
             Chromosome[] children = new Chromosome[2];
             int splitLocation = Helpers.rand.Next(alleles.Length);
 
@@ -150,7 +141,7 @@ namespace RobbyGeneticAlgo
 
         public Chromosome[] DoubleCrossover(Chromosome a, Chromosome b)
         {
-            //CONCERN: same as singlecrossover
+            //figures out two points where it should split, the invokes doubleHelper to do the heavy lifting
             int midPoint = ((alleles.Length) / 2);
             int firstSplit = Helpers.rand.Next(midPoint);
             int secondSplit = Helpers.rand.Next(midPoint + 1, alleles.Length);

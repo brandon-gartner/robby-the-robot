@@ -8,13 +8,13 @@ namespace RobbyGeneticAlgoUnitTests
     public class ChromosomeTest
     {
         
-        //TODO test length modifier thing
+        //I decided not to test the length constructor because if I can't trust C# to make an array of the size I tell it to, the language would be in shambles
+        //and entirely non-functional
 
         [TestMethod]
         public void TestAlleleArrayChromosomeConstructor()
         {
-            //using some probably way too long code, assigns 2x of every allele, creates a chromosome out of them, and then checks all of them
-            //to make sure that it all worked properly
+            //I made this much longer than i should have, but overall just tests the accuracy of the allele constructor
             Allele[] testAlleles = new Allele[14];
             testAlleles[0] = Allele.North;
             testAlleles[1] = Allele.South;
@@ -75,6 +75,8 @@ namespace RobbyGeneticAlgoUnitTests
 
             }
         }
+
+        //tests whether the reproduce method works properly when the mutationRate is equal to 0
         [TestMethod]
         public void TestReproduce()
         {
@@ -96,6 +98,7 @@ namespace RobbyGeneticAlgoUnitTests
             }
         }
 
+        //tests whether the resulting children are different than what they would be, if we set mutationrate to .5
         [TestMethod]
         public void TestReproduceFail()
         {
@@ -110,13 +113,12 @@ namespace RobbyGeneticAlgoUnitTests
             Chromosome[] testChildren = { new Chromosome(c), new Chromosome(d) };
             for (int i = 0; i < 2; i++)
             {
-                for (int j = 0; j < 5; j++)
-                {
-                    Assert.AreNotEqual(children[i], testChildren[i]);
-                }
+                Assert.AreNotEqual(children[i], testChildren[i]);
             }
         }
 
+        //tests whether or not the EvalFitness works, using a custom Fitness method
+        //found at the bottom of this class
         [TestMethod]
         public void TestEvalFitness()
         {
@@ -126,6 +128,8 @@ namespace RobbyGeneticAlgoUnitTests
             Assert.AreEqual(testChromosome.Fitness, 0);
         }
 
+
+        //tests the indexer.  this test is probably unnecessary
         [TestMethod]
         public void TestIndexer()
         {
@@ -138,6 +142,7 @@ namespace RobbyGeneticAlgoUnitTests
             Assert.AreEqual(testChromo[3], testChromo[3]);
         }
 
+        //tests whether converting a custom chromosome to a string creates the string that we expect
         [TestMethod]
         public void TestToString()
         {
@@ -153,6 +158,8 @@ namespace RobbyGeneticAlgoUnitTests
 
         //since my compareTo is simple I didn't write a test case for if both are chromosomes
 
+
+        //this will fail if you try to compare two objects, at least one of which is not a chromosome
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void TestCompareToNotChromosome()
@@ -162,6 +169,9 @@ namespace RobbyGeneticAlgoUnitTests
             a.CompareTo(b);
         }
 
+
+        //this has been tested by hand, fails if singleCrossover doesn't generate the appropriate
+        //random numbers.  currently, it does, and so this then is able to test whether or not singleCrossover works or not
         [TestMethod]
         public void TestSingleCrossover()
         {
@@ -183,6 +193,9 @@ namespace RobbyGeneticAlgoUnitTests
                 }
         }
 
+
+        //this has been tested by hand, fails if doubleCrossover doesn't generate the appropriate
+        //random numbers.  currently, it does, and so this then is able to test whether or not doubleCrossover works or not
         [TestMethod]
         public void TestDoubleCrossover()
         {
@@ -206,6 +219,7 @@ namespace RobbyGeneticAlgoUnitTests
             }
         }
 
+        //helper method to help test the evalFitness.  returns a certain fitness, based on the first allele of any chromosome
         public double FitnessBasedOnAlleleLiterals(Chromosome c)
         {
             switch (c[0])
