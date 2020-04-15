@@ -60,7 +60,5 @@ namespace RobbyGeneticAlgoUnitTests
             //Assert
             Assert.AreNotEqual(c, c2);
         }
-
-
     }
 }

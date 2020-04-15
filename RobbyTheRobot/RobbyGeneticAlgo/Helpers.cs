@@ -24,7 +24,7 @@ namespace RobbyGeneticAlgo
         /// <summary>
         /// Use this field to get any random number. Give it a seed for unit testing.
         /// </summary>
-        public static readonly Random rand = new Random();
+        public static readonly Random rand = new Random(45);
 
         /// <summary>
         /// Staring point of the Console application

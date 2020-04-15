@@ -17,15 +17,15 @@ namespace RobbyGeneticAlgo
         private double mutationRate;
         private double highestFitness = -1000000000;
         private int highestGen = 0;
+        private int gridSize;
         Contents[][,] gridContents;
         AlleleMoveAndFitness f;
         public event GenerationEventHandler GenerationReplacedEvent;
+        
+        private Generation currentGeneration;
 
-        //CONCERN: is the below allowed?
-        Generation currentGeneration;
 
-
-        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05)
+        public RobbyRobotProblem(int numGenerations, int popSize, AlleleMoveAndFitness f, int numActions = 200, int numTestGrids = 100, int numGenes = 243, double eliteRate = .05, double mutationRate = .05, int gridSize = 10)
         {
             this.numGenerations = numGenerations;
             this.popSize = popSize;
@@ -34,6 +34,7 @@ namespace RobbyGeneticAlgo
             this.numGenes = numGenes;
             this.eliteRate = eliteRate;
             this.mutationRate = mutationRate;
+            this.gridSize = gridSize;
             this.f = f;
             gridContents = new Contents[numTestGrids][,];
             
@@ -43,27 +44,26 @@ namespace RobbyGeneticAlgo
         {
             Generation lastGeneration;
             currentGeneration = new Generation(popSize, numGenes);
-            for (int i = 0; i < numGenerations; i++)
+            for (int i = 0; i < numGenerations + 1; i++)
             {
                 
                 //call the robotProblem's eval fitness, which evaluates the fitness of the entire currentGeneration
                 EvalFitness(RobbyFitness);
 
-                //saves your lastGeneration in case it is needed later
-                //WARNING: before submitting, decide if this is needed
+                //keeps track of the highest fitness and the generation with that fitnes
                 if (currentGeneration[0].Fitness >= highestFitness)
                 {
                     highestFitness = currentGeneration[0].Fitness;
                     highestGen = i;
                 }
                 lastGeneration = currentGeneration;
-                //CONCERN: should the event be invoked before or after generating the new generation?
                 GenerationReplacedEvent?.Invoke(i, lastGeneration);
                 currentGeneration = GenerateNextGeneration();
-                Console.WriteLine("Highest generation was thus far was: Generation " + highestGen);
-                Console.WriteLine("Highest fitness thus far was: " + highestFitness);
                 if (highestFitness != currentGeneration[0].Fitness)
                 {
+
+                    Console.WriteLine("Highest generation was thus far was: Generation " + highestGen);
+                    Console.WriteLine("Highest fitness thus far was: " + highestFitness);
                     Console.WriteLine("The current generation's fitness was less than the max by: " + Math.Round(currentGeneration[0].Fitness - highestFitness, 2));
                 }
                 
@@ -84,7 +84,7 @@ namespace RobbyGeneticAlgo
             //fill gridContents with square rectangular array
             for (int i = 0; i < numTestGrids; i++)
             {
-                gridContents[i] = Helpers.GenerateRandomTestGrid(10);
+                gridContents[i] = Helpers.GenerateRandomTestGrid(gridSize);
             }
 
             //evaluates the fitness of everything in the currentGeneration
@@ -92,12 +92,11 @@ namespace RobbyGeneticAlgo
         }
 
 
-        //written late at night with little sleep.  EXPECT BUGS
+        //creates the next generation
         public Generation GenerateNextGeneration()
         {
             //figure out how many are "elite", how many to ignore when reproducing
             int eliteCount = EliteCountDecider(popSize, eliteRate);
-            int ignoreCount = (int)(popSize * .1);
 
             //creating the chromosomes array
             Chromosome[] chromosomes = new Chromosome[popSize];
@@ -116,7 +115,6 @@ namespace RobbyGeneticAlgo
                 Chromosome secondParent = currentGeneration.SelectParent();
 
                 //reproduce, and then copy over the values into the chromosome array, to positions that make sense mathematically
-                //WARNING: the chromosome placement in the array may or may not work
                 Chromosome[] tempChromoArr = firstParent.Reproduce(secondParent, firstParent.DoubleCrossover, this.mutationRate);
                 chromosomes[eliteCount + 2 * i] = tempChromoArr[0];
                 chromosomes[eliteCount + (2 * i) + 1] = tempChromoArr[1];
@@ -125,39 +123,6 @@ namespace RobbyGeneticAlgo
             //create a generation ouot of the array of chromosomes created.
             Generation nextGen = new Generation(chromosomes);
             return nextGen;
-        }
-
-      
-        public int WeightedChromosomeSelector(int popSize, int randomMax, int eliteCount, int ignoreCount) 
-        {
-            
-            //declare numToAccess, initialize randomGen as an int less than randomMax
-            int numToAccess = 0;
-            int randomGen = Helpers.rand.Next(randomMax);
-            bool ignored = true;
-            //if it is part of the section we ignore (greater than popSize + elites - ignore)
-            while (ignored)
-            {
-                if (randomGen > (popSize + eliteCount - ignoreCount))
-                {
-                    randomGen = Helpers.rand.Next(randomMax);
-                }
-                //if randomGen is less than double the eliteCount, divide the number by 2 and use that as the numToAccess
-                else if (randomGen < (2 * eliteCount))
-                {
-                    numToAccess = randomGen / 2;
-                    ignored = false;
-                }
-                //if its not part of the section to ignore, and its not within the extended elite count, subtract the eliteCount
-                //to figure out what the number would have been originally
-                else
-                {
-                    numToAccess = (randomGen - eliteCount);
-                    ignored = false;
-                }
-            }
-            
-            return numToAccess;
         }
 
         //decides how many elite chromosomes there are.
